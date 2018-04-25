@@ -1,0 +1,24 @@
+public class Solution {
+    public ListNode deleteDuplication(ListNode pHead)
+    {
+        ListNode first = new ListNode(-1);//因为链表的头节点也有可能因为相等而删除，所以在头节点之前设置一个额外节点
+        first.next = pHead;
+ 
+        ListNode pNode = pHead;//记录当前需要判断比较的第一个节点
+        ListNode cNode = first;//记录当前需要保留的最后一个节点
+        
+        //需要注意调用.val或者.next之前必须判断是否为空，一旦为空说明到了链表的末尾
+        while (pNode != null && pNode.next != null) {
+            if (pNode.val == pNode.next.val) {//如果当前值和下一个值相等，则说明出现重复的
+                int val = pNode.val;//记录该值
+                while (pNode!= null&&pNode.val == val)
+                    pNode = pNode.next;//pNode向后移到不相等的一个
+                cNode.next = pNode;//接到cNode后
+            } else {//如果当前值和下一个不相等，说明当前值肯定要接到cNode后
+                cNode = pNode;
+                pNode = pNode.next;
+            }
+        }
+        return first.next;
+    }
+}
