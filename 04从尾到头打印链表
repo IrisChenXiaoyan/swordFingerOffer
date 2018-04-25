@@ -1,0 +1,24 @@
+import java.util.ArrayList;
+import java.util.Stack;
+public class Solution {
+    ArrayList<Integer> list = new ArrayList<>();
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        /*通过栈来实现
+       Stack<Integer> stack = new Stack<>();
+       ArrayList<Integer> list = new ArrayList<>();
+       while (listNode != null) {
+           stack.push(listNode.val);
+           listNode = listNode.next;
+       }
+       while (!stack.empty()) {
+           list.add(stack.pop());
+       }
+       */
+        //递归的本质也是栈
+        if (listNode != null) {
+            this.printListFromTailToHead(listNode.next);
+            list.add(listNode.val);
+        }
+       return list;
+    }
+}
