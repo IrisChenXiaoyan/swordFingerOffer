@@ -1,0 +1,28 @@
+public class Solution {
+    public int StrToInt(String str) {
+        if (str == null || str.length() == 0) {
+            return 0;
+        }
+        char first = str.charAt(0);
+        int sign = 1;
+        int start = 0;
+        long res = 0;
+        if (str.charAt(0) == '-') {
+            sign = -1;
+            start++;
+        } else if (str.charAt(0) == '+') {
+            start++;
+        }
+        for (int i = start; i < str.length(); i++) {
+            if (Character.isDigit(str.charAt(i))) {
+                res = res * 10 + str.charAt(i) - '0';
+            } else {
+                return 0;
+            }
+            if (res * sign > Integer.MAX_VALUE || res * sign < Integer.MIN_VALUE) {
+                return 0;
+            }
+        }
+        return (int) res * sign;
+    }
+}
