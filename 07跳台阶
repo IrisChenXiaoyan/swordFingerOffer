@@ -1,0 +1,20 @@
+public class Solution {
+    public int JumpFloor(int target) {
+        int f0 = 1;
+        int f1 = 1;
+        if (target < 1) {
+            return 0;
+        }
+        if (target == 1) {
+            return f1;
+        }
+        //迭代实现
+        int fn = 0;
+        for (int i = 2; i <= target; i++) {
+            fn = f0 + f1;
+            f0 = f1;
+            f1 = fn;
+        }
+        return fn;
+    }
+}
