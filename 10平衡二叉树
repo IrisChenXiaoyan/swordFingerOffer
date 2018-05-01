@@ -1,0 +1,23 @@
+public class Solution {
+    public boolean IsBalanced_Solution(TreeNode root) {
+        return getDepth(root) != -1;
+    }
+     /**
+     *该函数获得一个节点的左右子树的高度差，如果高度差大于1，说明不平衡，返回-1
+     *如果高度差小于等于1，则说明平衡，返回高度差加1，即以该节点为跟的左右子树的高度
+     **/
+    private int getDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftHeight = getDepth(root.left);
+        if (leftHeight == -1) {
+            return -1;
+        }
+        int rightHeight = getDepth(root.right);
+        if (rightHeight == -1) {
+            return -1;
+        }
+        return Math.abs(leftHeight - rightHeight) > 1 ? -1 : 1 + Math.max(leftHeight, rightHeight);
+    }
+}
