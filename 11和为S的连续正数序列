@@ -1,0 +1,28 @@
+import java.util.ArrayList;
+public class Solution {
+public ArrayList<ArrayList<Integer>> FindContinuousSequence(int sum) {
+        ArrayList<ArrayList<Integer>> listAll = new ArrayList<ArrayList<Integer>>();
+        if (sum < 3)
+            return listAll;
+        int small = 1;//一个小指针
+        int big = 2;//一个大指针
+        int middle = (sum + 1) / 2;//最小值不能大于和的一半
+        int curSum = 3;
+        while (small < middle) {//循环不变式的条件
+            while (curSum < sum) {//如果当前和小于最终值，则big++
+                big++;
+                curSum += big;
+            }
+            if (curSum == sum) {//如果相等则构造一个序列
+                ArrayList<Integer> list = new ArrayList<>();
+                for (int i = small; i <= big; i++) {
+                    list.add(i);
+                }
+                listAll.add(list);
+            }
+            curSum -= small;//如果大于则减去small并自增1
+            small++;
+        }
+        return listAll;
+    }
+}
