@@ -1,0 +1,20 @@
+//num1,num2分别为长度为1的数组。传出参数
+//将num1[0],num2[0]设置为返回结果
+public class Solution {
+    public void FindNumsAppearOnce(int [] array,int num1[] , int num2[]) {
+        int temp1 = 0;
+        int temp2 = 0;
+        for (int curNum : array) {
+            temp1 ^= curNum;//先得到两个数字的异或，肯定不为0
+        }
+        int rightOne = temp1 & (~temp1 + 1);//得到temp1中最右侧的1，那么那两个数该位肯定一个为0另一个为1
+        for (int cur : array) {//根据那位是否为1将数组分为两部分，这两部分不一定一样长，但肯定能把两个只出现一次的分开，并且其余的都出现了两次
+            if ((cur & rightOne) != 0)
+            {
+                temp2 ^= cur;//然后把这个子数组异或，得到其中一个数
+        }
+            num1[0] = temp2;
+            num2[0] = temp2 ^ temp1;//再得到第二个数
+    }
+}
+}
