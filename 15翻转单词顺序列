@@ -1,0 +1,33 @@
+public class Solution {
+    public String ReverseSentence(String str) {
+        if(str == null || str.length() == 0) {
+            return "";
+        }
+        char[] chars = str.toCharArray();
+        reverse(chars, 0, chars.length - 1);
+        int s = -1;
+        int e = -1;
+        for (int i = 0;i < chars.length; i++) {
+            if (chars[i] != ' '){
+                s = i==0 || chars[i-1]==' ' ? i : s;//开始标志位只有在i为0或者前一个为空格时才改变
+                e = i== chars.length-1 || chars[i+1] == ' ' ? i : e; //结束标志位只有在i为末尾或者后一个为空格时才改变
+            }
+            if (s != -1 && e != -1) {//只有开始和结束都改变了的时候才局部单词翻转
+                reverse(chars, s, e);
+                s = -1;
+                e = -1;
+            }
+        }
+        return String.valueOf(chars);
+    }
+    
+    private void reverse(char[] chars,int start, int end) {
+        while(start < end) {
+            char tmp = chars[start];
+            chars[start] = chars[end];
+            chars[end] = tmp;
+            start++;
+            end--;
+        }
+    }
+}
