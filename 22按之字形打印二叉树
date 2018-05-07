@@ -1,0 +1,65 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Deque;
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+//使用双端队列这个数据结构，两头均可以放入或取出怨怒是
+public class Solution {
+   ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+    public ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
+        if (pRoot == null) {
+            return list;
+        }
+        Deque<TreeNode> dq = new LinkedList<TreeNode>();
+        ArrayList<Integer> l = new ArrayList<Integer>();
+      
+        boolean lr = true;
+        TreeNode last = pRoot;
+        TreeNode nLast = null;
+        dq.offerFirst(pRoot);
+        while (!dq.isEmpty()) {
+            if (lr) {
+                pRoot = dq.pollFirst();
+                if (pRoot.left != null) {
+                    nLast = nLast == null ? pRoot.left : nLast;
+                    dq.offerLast(pRoot.left);
+                }
+                if (pRoot.right != null) {
+                    nLast = nLast == null ? pRoot.right : nLast;
+                    dq.offerLast(pRoot.right);
+                }
+            } else {
+                pRoot = dq.pollLast();
+                if (pRoot.right != null) {
+                    nLast = nLast == null ? pRoot.right : nLast;
+                    dq.offerFirst(pRoot.right);
+                }
+                if (pRoot.left != null) {
+                    nLast = nLast == null ? pRoot.left : nLast;
+                    dq.offerFirst(pRoot.left);
+                }
+            }
+            l.add(pRoot.val);
+            if (pRoot == last ) {
+                lr = !lr;
+                last = nLast;
+                nLast = null;
+                list.add(new ArrayList<Integer>(l));
+                l.clear();
+            }
+        }
+        return list;
+    }
+
+}
