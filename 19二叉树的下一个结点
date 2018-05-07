@@ -1,0 +1,40 @@
+/*
+public class TreeLinkNode {
+    int val;
+    TreeLinkNode left = null;
+    TreeLinkNode right = null;
+    TreeLinkNode next = null;
+
+    TreeLinkNode(int val) {
+        this.val = val;
+    }
+}
+*/
+public class Solution {
+    public TreeLinkNode GetNext(TreeLinkNode pNode)
+    {
+        if (pNode == null) {
+            return pNode;
+        }
+        if (pNode.right != null) {
+            return getLeftMost(pNode.right);
+        } else {
+            TreeLinkNode parent = pNode.next;
+            while (parent != null && parent.left != pNode) {
+                pNode = parent;
+                parent = pNode.next;
+            }
+            return parent;
+        }
+    }
+    
+    public TreeLinkNode getLeftMost(TreeLinkNode node) {
+        if (node == null) {
+            return node;
+        }
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
+}
