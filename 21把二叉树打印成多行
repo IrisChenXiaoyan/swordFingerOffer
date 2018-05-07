@@ -1,0 +1,49 @@
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.LinkedList;
+
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    ArrayList<ArrayList<Integer>> listAll = new ArrayList<ArrayList<Integer>>();
+    ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        if (pRoot == null) {
+            return listAll;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        TreeNode last = pRoot;//当前行的的最后一个结点
+        TreeNode nLast = null;//下一行的最后一个结点
+        queue.offer(pRoot);
+        while(!queue.isEmpty()) {//队列一直不为空直到二叉树的最后一个结点放入并取出
+            pRoot = queue.poll();
+            list.add(pRoot.val);
+            if (pRoot.left != null) {
+                queue.offer(pRoot.left);//不断往队列中放入下一层的结点
+                nLast = pRoot.left;
+            }
+            if (pRoot.right != null) {
+                queue.offer(pRoot.right);
+                nLast = pRoot.right;
+            }
+            if (pRoot == last) {
+                listAll.add(new ArrayList<Integer>(list));
+                list.clear();
+                last = nLast;
+            }
+        }
+        return listAll;
+    }
+    
+}
