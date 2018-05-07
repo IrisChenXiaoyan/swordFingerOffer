@@ -1,0 +1,51 @@
+import java.util.ArrayList;
+public class Solution {
+    public ArrayList<Integer> printMatrix(int [][] matrix) {
+        if (matrix == null) {
+            return null;
+        }
+       ArrayList<Integer> list =new ArrayList<>();
+        if (matrix.length == 0 || matrix[0].length == 0) {
+            return list;
+        }
+        int tR = 0;
+        int tC = 0;
+        int dR = matrix.length - 1;
+        int dC = matrix[0].length -1;
+        while (tR <= dR && tC <= dC) {
+            Circle(matrix, list, tR++, tC++, dR--, dC--);
+        }
+        return list;
+    }
+    
+    public void Circle(int[][] m, ArrayList<Integer> l, int tR, int tC, int dR, int dC) {
+        if (tR == dR) {//only have one row
+            for (int i = tC; i <= dC; i++) {
+                l.add(m[tR][i]);
+            }
+        } else if (tC == dC) {//only have one column
+            for (int i = tR; i <= dR; i++) {
+                l.add(m[i][tC]);
+            }
+        } else {
+            int curC = tC;
+            int curR = tR;
+            while (curC != dC) {//from left to right
+                l.add(m[tR][curC]);
+                curC++;
+            }
+            while (curR != dR) {//from up to down
+                l.add(m[curR][dC]);
+                curR++;
+            }
+            while (curC != tC) {//from right to left
+                l.add(m[dR][curC]);
+                curC--;
+            }
+            while (curR != tR) {//from down to up
+                l.add(m[curR][tC]);
+                curR--;
+            }
+        }
+    }
+}
