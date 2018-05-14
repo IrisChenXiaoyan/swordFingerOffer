@@ -1,0 +1,57 @@
+public class Solution {
+    public int InversePairs(int [] array) {
+        if(array==null||array.length==0)
+        {
+            return 0;
+        }
+        int[] copy = new int[array.length];//辅助数组
+        for(int i=0;i<array.length;i++)
+        {
+            copy[i] = array[i];
+        }
+        int count = InversePairsCore(array,copy,0,array.length-1);//数值过大求余
+        return count;
+         
+    }
+    private int InversePairsCore(int[] array,int[] copy,int low,int high)
+    {
+        if(low==high)
+        {
+            return 0;
+        }
+        int mid = (low+high)>>1;//有符号右移相当于除以2
+        int leftCount = InversePairsCore(copy,array,low,mid)%1000000007;
+        int rightCount = InversePairsCore(copy,array,mid+1,high)%1000000007;
+        int count = 0;
+        int p1=mid;//前一个数组的指针
+        int p2=high;
+        int p3 = high;
+        //归并排序的思想
+        while(p1>=low&&p2>mid)
+        {
+            if(array[p1]>array[p2])
+            {
+                count += p2-mid;
+                copy[p3--] = array[p1--];
+                if(count>=1000000007)//数值过大求余
+                {
+                    count%=1000000007;
+                }
+            }
+            else
+            {
+                copy[p3--] = array[p2--];
+            }
+        }
+        for(;p1>=low;p1--)
+        {
+            copy[p3--]=array[p1];
+        }
+        for(;p2>mid;p2--)
+        {
+            copy[p3--]=array[p2];
+        }
+        
+        return (leftCount+rightCount+count)%1000000007;
+    }
+}
