@@ -1,0 +1,29 @@
+public class Solution {
+    public int NumberOf1Between1AndN_Solution(int n) {
+        if (n < 1) {
+            return 0;
+        }
+        int len = getLenOfNum(n);
+        if (len == 1) {
+            return 1;
+        }
+        int tmp1 = powerBaseOf10(len - 1);
+        int first = n / tmp1;//最高位的数字
+        int firstOneNum = first == 1 ? n % tmp1 + 1 : tmp1;//最高位上1出现的次数
+        int otherOneNum = first * (len - 1) * (tmp1 / 10);//其他位上出现1的次数
+        return firstOneNum + otherOneNum + NumberOf1Between1AndN_Solution(n % tmp1);
+    }
+    
+    public int getLenOfNum(int n) {
+        int len = 0;
+        while (n != 0){
+            len++;
+            n /= 10;
+        }
+        return len;
+    }
+    
+    public int powerBaseOf10(int base) {
+        return (int) Math.pow(10, base);
+    }
+}
