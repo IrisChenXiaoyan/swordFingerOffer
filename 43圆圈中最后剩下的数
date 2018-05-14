@@ -1,0 +1,18 @@
+import java.util.*;
+public class Solution {
+    public int LastRemaining_Solution(int n, int m) {
+        if (n <= 0 || m <= 0){
+            return -1;
+        }
+        ArrayList<Integer> array=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            array.add(i);
+        }
+        int tempIndex=(m-1)%array.size();//用于记录最初需清除的数字索引
+        while(array.size()!=1){
+            array.remove(tempIndex);
+            tempIndex=(tempIndex+(m-1))%array.size();//记录当前索引
+        }
+        return array.get(0);
+    }
+}
