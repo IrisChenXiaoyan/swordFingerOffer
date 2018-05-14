@@ -1,0 +1,29 @@
+import java.util.Arrays;
+public class Solution {
+    public boolean duplicate(int numbers[],int length,int [] duplication) {
+        if (!isValid(numbers)) {
+            return false;
+        }
+        Arrays.sort(numbers);
+        for (int i = 0; i < length-1; i++) {
+            if (numbers[i] == numbers[i+1]) {
+                duplication[0] = numbers[i];
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public boolean isValid(int numbers[]) {
+        if (numbers == null || numbers.length == 0) {
+            return false;
+        }
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] >= numbers.length || numbers[i] < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
