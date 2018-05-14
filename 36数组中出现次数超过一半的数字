@@ -1,0 +1,27 @@
+public class Solution {
+    public int MoreThanHalfNum_Solution(int [] array) {
+        int cand = 0;
+        int times = 0;
+        for (int i = 0; i != array.length; i++) {
+            if (times == 0) {
+                cand = array[i];
+                times = 1;
+            } else if (array[i] == cand) {
+                times++;
+            } else {
+                times--;
+            }
+        }
+        times = 0;
+        for (int i = 0; i != array.length; i++) {
+            if (array[i] == cand) {
+                times++;
+            }
+        }
+        if (times > array.length/2) {
+            return cand;
+        } else {
+            return 0;
+        }
+    }
+}
