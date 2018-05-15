@@ -1,0 +1,10 @@
+public class Solution {
+    public int Add(int num1,int num2) {
+        while (num2 != 0) {//重复直到进位值为1
+            int tmp = num1 ^ num2;//二进制数的各个位单独相加，异或操作
+            num2 = (num1 & num2) << 1;//进位值，相与再左移
+            num1 = tmp;
+        }
+        return num1;
+    }
+}
