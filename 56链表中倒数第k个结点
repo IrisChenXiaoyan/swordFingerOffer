@@ -1,0 +1,33 @@
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Solution {
+    public ListNode FindKthToTail(ListNode head,int k) {
+        if (head == null || k <= 0) {
+            return null;
+        }
+        //不需要遍历链表得到链表长度的方法，设置两个指针
+        ListNode temp1 = head;
+        ListNode temp2 = head;
+        for (int i = 0; i < k-1; i++) {
+            if (temp1.next != null) {
+                temp1 = temp1.next;
+            } else {
+                return null;
+            }
+            
+        }
+        while (temp1.next != null) {
+            temp1 = temp1.next;
+            temp2 = temp2.next;
+        }
+        
+        return temp2;
+    }
+}
