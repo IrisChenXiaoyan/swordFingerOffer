@@ -1,0 +1,20 @@
+public class Solution {
+    public int NumberOf1(int n) {
+       int res = 0;
+        /*
+        while (n != 0) {
+            res += n & 1;
+            n >>>= 1;//无符号右移>>>
+        }*/
+        /*
+        while (n != 0) {
+            n &= (n - 1);//移除最右侧的1
+            res++;
+        }*/
+        while (n != 0) {
+            n -= n &(~n + 1);//得到最右边的1并减去
+            res++;
+        }
+        return res;
+    }
+}
